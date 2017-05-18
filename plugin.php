@@ -204,7 +204,7 @@ class Formstack_Plugin {
 		?>
 		<p>
 			<?php
-			_e( 'The <a href="https://www.formstack.com" target="_blank">Formstack</a> Plugin uses the Formstack API to get a listing of your forms. An API key is required for this plugin to work.
+			esc_html_e( 'The <a href="https://www.formstack.com" target="_blank">Formstack</a> Plugin uses the Formstack API to get a listing of your forms. An API key is required for this plugin to work.
 	You can create an API key in your <a href="//www.formstack.com/admin/apiKey/main" target="_blank">account settings</a>.', 'formstack' ); ?>
 		</p>
 		<?php
@@ -228,7 +228,7 @@ class Formstack_Plugin {
 		) );
 		switch ( $args['type'] ) {
 			case 'text':
-				echo '<input type="' . $args['type'] . '" class="' . esc_attr( $args['class'] ) . '" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" placeholder="' . esc_attr( $args['description'] ) . '" value="' . esc_attr( $args['value'] ) . '" />';
+				echo '<input type="' . esc_attr( $args['type'] ) . '" class="' . esc_attr( $args['class'] ) . '" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" placeholder="' . esc_attr( $args['description'] ) . '" value="' . esc_attr( $args['value'] ) . '" />';
 				break;
 			default:
 				echo '<input type="text" class="' . esc_attr( $args['class'] ) . '" id="' . esc_attr( $args['id'] ) . '" name="' . esc_attr( $args['name'] ) . '" placeholder="' . esc_attr( $args['description'] ) . '" value="' . esc_attr( $args['value'] ) . '" />';
@@ -326,7 +326,7 @@ class Formstack_Plugin {
 			</a>
 		</noscript>
 		<?php
-		echo wp_remote_retrieve_body( $wp );
+		echo wp_kses_post( wp_remote_retrieve_body( $wp ) );
 
 		return ob_get_clean();
 	}

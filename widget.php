@@ -51,7 +51,7 @@ class Formstack_Widget extends WP_Widget {
 				<a href="<?php echo esc_url( $noscript_url ); ?>" title="<?php esc_attr_e( 'Online Form', 'formstack' ); ?>"><?php esc_html_e( 'Online Form', 'formstack' ); ?></a>
 			</noscript>
 			<?php
-				echo wp_remote_retrieve_body( $wp );
+				echo wp_kses_post( wp_remote_retrieve_body( $wp ) );
 			?>
 		</div>
 	<?php
@@ -96,7 +96,7 @@ class Formstack_Widget extends WP_Widget {
 		$key_field_name = $this->get_field_name( 'formstack_api_key' );
 
 		if ( empty( $api_key ) ) {
-			echo $this->empty_api_key( $key_field_id, $key_field_name );
+			echo esc_html( $this->empty_api_key( $key_field_id, $key_field_name ) );
 			return;
 		}
 
@@ -106,10 +106,10 @@ class Formstack_Widget extends WP_Widget {
 		}
 
 		if ( isset( $res->status ) && 'error' == $res->status ) {
-			echo $this->empty_api_key( $key_field_id, $key_field_name );
+			echo esc_html( $this->empty_api_key( $key_field_id, $key_field_name ) );
 			return;
 		} elseif ( isset( $res->status ) && 'ok' != $res->status ) {
-			echo $this->api_error();
+			echo esc_html( $this->api_error() );
 			return;
 		}
 
@@ -123,9 +123,9 @@ class Formstack_Widget extends WP_Widget {
 		}
 		?>
 		<p>
-			<label for="<?php echo $fields['formkey']['id']; ?>">
+			<label for="<?php echo esc_attr( $fields['formkey']['id'] ); ?>">
 				<?php esc_html_e( 'Choose a form to embed:', 'formstack' ); ?>
-				<select class="widefat" name="<?php echo $fields['formkey']['name']; ?>" id="<?php echo $fields['formkey']['id']; ?>">
+				<select class="widefat" name="<?php echo esc_attr( $fields['formkey']['name'] ); ?>" id="<?php echo esc_attr( $fields['formkey']['id'] ); ?>">
 				<?php
 				if ( '' == $fields['formkey']['value'] ) { ?>
 					<option value=''></option>
@@ -136,14 +136,14 @@ class Formstack_Widget extends WP_Widget {
 				foreach ( $forms as $form ) {
 					$sel = selected( $fields['formkey']['value'], "{$form->id}-{$form->viewkey}", false );
 					?>
-					<option <?php echo $sel; ?> value="<?php echo "{$form->id}-{$form->viewkey}"; ?>">
+					<option <?php echo esc_attr( $sel ); ?> value="<?php echo esc_attr( "{$form->id}-{$form->viewkey}" ); ?>">
 						<?php echo esc_html( $form->name ); ?></option>
 					<?php
 				}
 				?>
 				</select>
 			</label>
-			<input type="hidden" name="<?php echo $key_field_name; ?>" id="<?php echo $key_field_id; ?>" value="<?php echo $api_key; ?>" />
+			<input type="hidden" name="<?php echo esc_attr( $key_field_name ); ?>" id="<?php echo esc_attr( $key_field_id ); ?>" value="<?php echo esc_attr( $api_key ); ?>" />
 		</p>
 		<?php
 	}

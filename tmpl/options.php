@@ -35,10 +35,10 @@
 				printf(
 					'<li>%s</li>',
 					sprintf(
-						__( 'API Key: %s', 'formstack' ),
+						esc_html__( 'API Key: %s', 'formstack' ),
 						sprintf(
 							'<strong>%s</strong>',
-							$status
+							esc_html( $status )
 						)
 					)
 				);
@@ -46,10 +46,10 @@
 					printf(
 						'<li class="error">%s</li>',
 						sprintf(
-							__( 'API Error: %s', 'formstack' ),
+							esc_html__( 'API Error: %s', 'formstack' ),
 							sprintf(
 								'<strong>%s</strong>',
-								$error
+								esc_html( $error )
 							)
 						)
 					);
@@ -58,10 +58,10 @@
 					sprintf(
 						'<li>%s</li>',
 						sprintf(
-							__( 'Available Forms: %s', 'formstack' ),
+							esc_html__( 'Available Forms: %s', 'formstack' ),
 							sprintf(
 								'<strong>%d</strong>',
-								$form_count
+								esc_html( $form_count )
 							)
 						)
 					)
@@ -69,10 +69,10 @@
 				printf(
 					'<li>%s</li>',
 					sprintf(
-						__( 'PHP Version: %s', 'formstack' ),
+						esc_html__( 'PHP Version: %s', 'formstack' ),
 						sprintf(
 							'<strong>%s</strong>',
-							PHP_VERSION
+							esc_html( PHP_VERSION )
 						)
 					)
 				);
