@@ -310,8 +310,15 @@ class Formstack_Plugin {
 		if ( empty( $atts['id'] ) || empty( $atts['viewkey'] ) ) {
 			return '';
 		}
+
+		// TEMPORARY
+		$atts['id'] = '993962';
+		$atts['viewkey'] = 'aWULigrCFZ-v2';
+
+
 		// An ad request. Displays after the actual form.
 		$wp = wp_remote_get( "https://www.formstack.com/forms/wp-ad.php?form={$atts['id']}" );
+;
 		?>
 		<?php
 		$script_url = "https://www.formstack.com/forms/js.php?{$atts['id']}-{$atts['viewkey']}";
@@ -326,7 +333,6 @@ class Formstack_Plugin {
 			</a>
 		</noscript>
 		<?php
-		echo wp_kses_post( wp_remote_retrieve_body( $wp ) );
 
 		return ob_get_clean();
 	}
